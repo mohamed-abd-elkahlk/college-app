@@ -1,7 +1,7 @@
 "use server";
 
 import connectMongo from "@/lib/db";
-import Post from "@/models/posts";
+import Post from "@/models/news";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import { verifyToken } from "@/lib/utils";
