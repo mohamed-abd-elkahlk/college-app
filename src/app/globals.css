@@ -71,6 +71,16 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground
   }
+
+}
+
+@layer components{
+  .flex-center{
+    @apply flex items-center justify-center flex-col md:flex-row
+  }
+  .service-card{
+    @apply flex-center flex-col gap-6 border p-3 rounded-xl shadow-xl shadow-gray-300 hover:shadow-gray-900 hover:shadow-2xl duration-700
+    }
 }

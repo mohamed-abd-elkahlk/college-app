@@ -10,6 +10,7 @@ export const GET = async (req: NextRequest) => {
   if (jwt) {
     try {
       const token = verifyToken(jwt?.value!);
+      if (token) throw Error;
       await connectMongo();
       const user = await User.findById(token.sub);
       const newToken = issueJwt(user);

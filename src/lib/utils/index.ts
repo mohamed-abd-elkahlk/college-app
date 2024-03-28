@@ -15,6 +15,7 @@ export function issueJwt(user: IUser) {
   );
   return token;
 }
+export const convertFileToUrl = (file: File) => URL.createObjectURL(file);
 
 export function verifyToken(token: string) {
   const verifytToken = jwt.verify(token, process.env.JWT_SECRET!);

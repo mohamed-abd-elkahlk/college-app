@@ -1,6 +1,17 @@
 "use client";
-import { useUserContext } from "@/context/AuhtProvider";
+import About from "@/components/shared/About";
+import Contact from "@/components/shared/Contact";
+import Hero from "@/components/shared/Hero";
+import Services from "@/components/shared/Services";
 
 export default function Home() {
-  return <main>home page</main>;
+  return (
+    <main>
+      <Hero />
+      <Services />
+      <About />
+      {/* priceing in the feature */}
+      <Contact />
+    </main>
+  );
 }
