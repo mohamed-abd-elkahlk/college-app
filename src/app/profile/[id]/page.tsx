@@ -10,21 +10,21 @@ import Link from "next/link";
 const page = async ({ params }: { params: { id: string } }) => {
   await connectMongo();
   const user = await User.findById(params.id);
-
   const cuurntUserId = verifyToken(
     cookies().get("jwt")?.value as unknown as string
   )?.sub;
-  if (!cuurntUserId) {
-    return (
-      <div className="grid place-items-center h-screen">
-        <h1 className="text-5x font-semibold">
-          BAD AUTH:"your token expried or your are not sgined in please log in
-          to see the users info"
-        </h1>
-        <Link href={"/portal/auth"}>Log In</Link>
-      </div>
-    );
-  }
+
+  // if (!cuurntUserId) {
+  //   return (
+  //     <div className="grid place-items-center h-screen">
+  //       <h1 className="text-5x font-semibold">
+  //         BAD AUTH:"your token expried or your are not sgined in please log in
+  //         to see the users info"
+  //       </h1>
+  //       <Link href={"/portal/auth"}>Log In</Link>
+  //     </div>
+  //   );
+  // }
   return (
     <section className="mt-20 px-12 py-6">
       <div className="flex justify-between">
