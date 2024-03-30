@@ -12,7 +12,7 @@ export const newsValidation = z.object({
   title: z.string().min(2).max(50),
   content: z.string().min(10).max(5000),
   tags: z.string().min(2).max(50),
-  team: z.number().min(2).max(50),
+  team: z.string().min(1).max(1),
   facility: z.string().min(2).max(3),
   image: z.string(),
   file: z.custom<File[]>(),

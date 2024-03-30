@@ -15,10 +15,10 @@ import { Input } from "@/components/ui/input";
 import { newsValidation } from "@/lib/validation";
 import { z } from "zod";
 import { Textarea } from "../ui/textarea";
-import { SingleImageDropzone } from "./FileUploder";
+import FileUploader from "./FileUploder";
 import { useEdgeStore } from "@/context/EdgeStoreProvider";
 import { useState } from "react";
-const NewsForm = ({ post, action }: { post?: unknown; action?: string }) => {
+const NewsForm = ({ post, action }: { post?: any; action?: string }) => {
   const [file, setFile] = useState<File>();
   const { edgestore } = useEdgeStore();
   // 1. Define your form.
@@ -29,7 +29,7 @@ const NewsForm = ({ post, action }: { post?: unknown; action?: string }) => {
       content: "",
       tags: "",
       facility: "",
-      team: undefined,
+      team: "",
       image: "",
       file: [],
     },
@@ -42,7 +42,7 @@ const NewsForm = ({ post, action }: { post?: unknown; action?: string }) => {
     console.log(values);
   }
   return (
-    <div className="flex-center flex-col gap-6 w-[720px] py-12">
+    <div className="flex-center flex-col gap-6 min-w-[720px] py-12 flex-1">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -86,7 +86,12 @@ const NewsForm = ({ post, action }: { post?: unknown; action?: string }) => {
                 <FormItem>
                   <FormLabel>Level</FormLabel>
                   <FormControl>
-                    <Input placeholder="level" {...field} className="w-full" />
+                    <Input
+                      placeholder="level"
+                      maxLength={1}
+                      {...field}
+                      className="w-full"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -101,16 +106,9 @@ const NewsForm = ({ post, action }: { post?: unknown; action?: string }) => {
               <FormItem>
                 <FormLabel>Image</FormLabel>
                 <FormControl>
-                  <SingleImageDropzone
-                    width={200}
-                    height={200}
-                    value={file}
-                    dropzoneOptions={{
-                      maxSize: 1024 * 1024 * 5,
-                    }}
-                    onChange={(file) => {
-                      setFile(file);
-                    }}
+                  <FileUploader
+                    fieldChange={field.onChange}
+                    mediaUrl={post?.imageUrl}
                   />
                 </FormControl>
                 <FormMessage />
