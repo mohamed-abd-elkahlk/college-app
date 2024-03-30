@@ -10,21 +10,27 @@ import Link from "next/link";
 const page = async ({ params }: { params: { id: string } }) => {
   await connectMongo();
   const user = await User.findById(params.id);
-  const cuurntUserId = verifyToken(
-    cookies().get("jwt")?.value as unknown as string
-  )?.sub;
+  const jwtCookies = cookies().get("jwt")?.value as unknown as string;
+  let cuurntUserId;
+  if (jwtCookies) {
+    cuurntUserId = verifyToken(jwtCookies)?.sub;
+  }
 
-  // if (!cuurntUserId) {
-  //   return (
-  //     <div className="grid place-items-center h-screen">
-  //       <h1 className="text-5x font-semibold">
-  //         BAD AUTH:"your token expried or your are not sgined in please log in
-  //         to see the users info"
-  //       </h1>
-  //       <Link href={"/portal/auth"}>Log In</Link>
-  //     </div>
-  //   );
-  // }
+  if (!cuurntUserId) {
+    return (
+      <div className="grid place-items-center h-screen">
+        <div className="flex-center gap-6 flex-col">
+          <h1 className="text-3xl font-semibold">
+            BAD AUTH:"your token expried or your are not sgined in please log in
+            to see the users info"
+          </h1>
+          <Link href={"/portal/auth"}>
+            <Button>Log In</Button>
+          </Link>
+        </div>
+      </div>
+    );
+  }
   return (
     <section className="mt-20 px-12 py-6">
       <div className="flex justify-between">
@@ -48,13 +54,13 @@ const page = async ({ params }: { params: { id: string } }) => {
             </div>
           </div>
         </div>
-        {params.id === cuurntUserId ? (
+        {/* {params.id === cuurntUserId ? (
           <Link href={`/profile/${cuurntUserId}/edit`}>
             <Button>Edit Profile</Button>
           </Link>
         ) : (
           ""
-        )}
+        )} */}
       </div>
       <div className="flex-center py-12">
         <Content

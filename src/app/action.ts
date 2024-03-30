@@ -25,5 +25,5 @@ export async function Login(prevState: any, loginData: FormData) {
   }
   const token = issueJwt(user);
   cookies().set("jwt", token);
-  redirect("/profile");
+  redirect(`/profile/${user._id}`);
 }
