@@ -1,10 +1,10 @@
 import NewsCard from "@/components/shared/NewsCard";
 import connectMongo from "@/lib/db";
-import Post from "@/models/news";
+import News from "@/models/news";
 
 const page = async () => {
   await connectMongo();
-  const news = await Post.find({});
+  const news = await News.find({});
   return (
     <div className="mt-20 px-6 py-12">
       <h2 className="text-center text-3xl font-bold">News</h2>

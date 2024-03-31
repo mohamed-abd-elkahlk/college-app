@@ -1,5 +1,4 @@
 "use client";
-
 import { IUser } from "@/types";
 import React, { useEffect, useState, createContext, useContext } from "react";
 const INITIAL_USER: IUser = {
@@ -38,7 +37,7 @@ const AuhtProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   useEffect(() => {
-    checkAuth();
+    // checkAuth();
   }, []);
   const value = {
     user,

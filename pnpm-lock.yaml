@@ -11,6 +11,9 @@ dependencies:
   '@edgestore/server':
     specifier: ^0.1.6
     version: 0.1.6(react-dom@18.2.0)(react@18.2.0)(zod@3.22.4)
+  '@emailjs/browser':
+    specifier: ^4.3.3
+    version: 4.3.3
   '@hookform/resolvers':
     specifier: ^3.3.4
     version: 3.3.4(react-hook-form@7.51.2)
@@ -829,6 +832,11 @@ packages:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       zod: 3.22.4
+    dev: false
+
+  /@emailjs/browser@4.3.3:
+    resolution: {integrity: sha512-ltpt2S/WVREIBXptxYAVYBvXb2O6yTUYiRUWF8OLikMxlmiGsIgKpgHppikNd4Df0uAav7jCsQKcOJ3TJFUx5g==}
+    engines: {node: '>=14.0.0'}
     dev: false
 
   /@hookform/resolvers@3.3.4(react-hook-form@7.51.2):

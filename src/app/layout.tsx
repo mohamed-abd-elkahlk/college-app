@@ -5,7 +5,7 @@ import Navbar from "@/layout/Navbar";
 import Footer from "@/layout/Footer";
 import AuthProvider from "@/context/AuhtProvider";
 import { EdgeStoreProvider } from "@/context/EdgeStoreProvider";
-
+import { Toaster } from "@/components/ui/toaster";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -28,6 +28,7 @@ export default function RootLayout({
           </AuthProvider>
           <Footer />
         </EdgeStoreProvider>
+        <Toaster />
       </body>
     </html>
   );

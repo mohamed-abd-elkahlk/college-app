@@ -27,3 +27,25 @@ export async function Login(prevState: any, loginData: FormData) {
   cookies().set("jwt", token);
   redirect(`/profile/${user._id}`);
 }
+
+export async function Contact(prevState: any, contactData: FormData) {
+  const contactInfo = {
+    full_name: contactData.get("name"),
+    email: contactData.get("email"),
+    phone_number: contactData.get("phone-number"),
+    subject: contactData.get("subject"),
+    message: contactData.get("message"),
+  };
+
+  const req = await fetch("https://formcarry.com/s/6WQSk0WZONi", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", Accept: "application/json" },
+    body: JSON.stringify(contactInfo),
+  });
+  const res = await req.json();
+
+  if (res.code === 200) {
+    return { message: res.message, success: true || undefined };
+  }
+  return { message: res.message, success: false || undefined };
+}

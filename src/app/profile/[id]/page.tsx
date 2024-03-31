@@ -54,13 +54,13 @@ const page = async ({ params }: { params: { id: string } }) => {
             </div>
           </div>
         </div>
-        {/* {params.id === cuurntUserId ? (
+        {params.id === cuurntUserId ? (
           <Link href={`/profile/${cuurntUserId}/edit`}>
             <Button>Edit Profile</Button>
           </Link>
         ) : (
           ""
-        )} */}
+        )}
       </div>
       <div className="flex-center py-12">
         <Content
