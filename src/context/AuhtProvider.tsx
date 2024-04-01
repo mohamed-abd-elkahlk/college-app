@@ -2,6 +2,7 @@
 import { IUser } from "@/types";
 import React, { useEffect, useState, createContext, useContext } from "react";
 const INITIAL_USER: IUser = {
+  role: "",
   _id: "",
   bio: "",
   email: "",
@@ -16,29 +17,28 @@ const INITIAL_STATE = {
 };
 const AuthContext = createContext(INITIAL_STATE);
 
-const AuhtProvider = ({ children }: { children: React.ReactNode }) => {
+const AuhtProvider = ({
+  children,
+  userData,
+}: {
+  children: React.ReactNode;
+  userData?: any;
+}) => {
   const [user, setUser] = useState<IUser>(INITIAL_USER);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-  const checkAuth = async () => {
-    setIsLoading(true);
-    try {
-      const req = await fetch("/api/auth");
-      const data = await req.json();
-      if (data.ok) {
-        setUser(data.user);
-        setIsAuthenticated(true);
-      }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setIsLoading(false);
+  const checkAuth = () => {
+    if (userData) {
+      setIsAuthenticated(true);
+      setIsLoading(true);
+      setUser(userData);
     }
+    setIsLoading(false);
   };
 
   useEffect(() => {
-    // checkAuth();
-  }, []);
+    checkAuth();
+  }, [user, userData]);
   const value = {
     user,
     isLoading,

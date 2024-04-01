@@ -19,7 +19,6 @@ import FileUploader from "./FileUploder";
 import { useEdgeStore } from "@/context/EdgeStoreProvider";
 import { useState } from "react";
 const NewsForm = ({ post, action }: { post?: any; action?: string }) => {
-  const [file, setFile] = useState<File>();
   const { edgestore } = useEdgeStore();
   // 1. Define your form.
   const form = useForm<z.infer<typeof newsValidation>>({

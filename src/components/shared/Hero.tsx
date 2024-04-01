@@ -1,5 +1,3 @@
-import { url } from "inspector";
-
 const Hero = () => {
   return (
     <section
@@ -8,7 +6,7 @@ const Hero = () => {
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
-      className="h-screen flex-center flex-col"
+      className="h-screen flex-center flex-col text-center p-6"
     >
       <h1 className="text-4xl font-bold p-3">
         Empower the Next Generation to Become a Good Teacher at Their Major
