@@ -44,7 +44,7 @@ const FileUploader = ({ fieldChange, mediaUrl }: FileUploaderProps) => {
           <p className="file_uploader-label">Click or drag photo to replace</p>
         </>
       ) : (
-        <div className="file_uploader-box ">
+        <div className="flex-center flex-col">
           <img
             src="/assets/icons/file-upload.svg"
             width={96}

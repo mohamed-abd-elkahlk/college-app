@@ -1,5 +1,5 @@
 "use client";
-
+import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
@@ -17,7 +17,7 @@ import { z } from "zod";
 import { Textarea } from "../ui/textarea";
 import FileUploader from "./FileUploder";
 import { useEdgeStore } from "@/context/EdgeStoreProvider";
-import { useState } from "react";
+import { useToast } from "../ui/use-toast";
 const NewsForm = ({ post, action }: { post?: any; action?: string }) => {
   const { edgestore } = useEdgeStore();
   // 1. Define your form.
@@ -34,19 +34,39 @@ const NewsForm = ({ post, action }: { post?: any; action?: string }) => {
     },
   });
 
+  const { toast } = useToast();
+  const path = useRouter();
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof newsValidation>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+
+  async function onSubmit(values: z.infer<typeof newsValidation>) {
+    let uploadFile;
+    try {
+      uploadFile = await edgestore.myPublicImages.upload({
+        file: values.file[0],
+      });
+      const req = await fetch("/api/new/news", {
+        method: "POST",
+        body: JSON.stringify({ ...values, image: uploadFile.url }),
+      });
+      const res = await req.json();
+      console.log(res);
+
+      if (res.ok) {
+        toast({ title: "success you create a new news" });
+        path.push(`/news/${res._id}`);
+      }
+    } catch (error) {
+      console.log(error);
+
+      // await edgestore.myPublicImages.delete({
+      //   url: uploadFile?.url!,
+      // });
+    }
   }
   return (
-    <div className="flex-center flex-col gap-6 min-w-[720px] py-12 flex-1">
+    <div className="flex-center flex-col gap-6 max-w-[720px] py-12 flex-1">
       <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-8 w-full"
-        >
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 ">
           <FormField
             control={form.control}
             name="title"
@@ -60,7 +80,7 @@ const NewsForm = ({ post, action }: { post?: any; action?: string }) => {
               </FormItem>
             )}
           />
-          <div className="flex gap-6 items-center justify-center">
+          <div className="flex gap-6 items-center justify-center flex-col md:flex-row">
             <FormField
               control={form.control}
               name="facility"

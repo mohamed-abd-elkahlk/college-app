@@ -6,10 +6,18 @@ import { useUserContext } from "@/context/AuhtProvider";
 import { MenuSquareIcon } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
+
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [show, setShow] = useState(false);
   const { user } = useUserContext();
+  const pathname = usePathname();
+  const path = /dashboard(.*)/;
+
+  if (path.test(pathname)) {
+    return;
+  }
   return (
     <div
       className={`flex-center justify-around fixed top-0 left-0 w-full z-10 bg-white shadow-md px-4 py-2 ${

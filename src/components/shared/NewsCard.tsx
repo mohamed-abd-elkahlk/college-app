@@ -4,8 +4,13 @@ import { Button } from "../ui/button";
 import Link from "next/link";
 
 const NewsCard = ({ data }: any) => {
+  console.log(data);
+
   return (
-    <div className="border shadow-slate-600 shadow-lg rounded-lg p-3">
+    <div
+      className="border shadow-slate-600 shadow-lg rounded-lg p-3"
+      key={data._id}
+    >
       <Image
         src={data.image || "/assets/images/about.jpg"}
         alt="post-image"
@@ -14,19 +19,14 @@ const NewsCard = ({ data }: any) => {
         className="object-contain rounded-md"
       />
       <div>
-        <h3 className="text-center font-semibold text-2xl p-2">News Title</h3>
+        <h3 className="text-center font-semibold text-2xl p-2">{data.title}</h3>
         <hr />
-        <p>
-          news decription: Lorem ipsum dolor sit amet consectetur adipisicing
-          elit. Eveniet placeat dicta iusto illo quidem explicabo eos veniam
-          magni neque voluptas. Expedita illum temporibus ab dolor recusandae
-          architecto tempora voluptates corporis.
-        </p>
+        <p>{data.content}</p>
       </div>
       <hr />
       <div className="flex justify-between items-center p-3">
-        <p>date {multiFormatDateString(Date.now().toLocaleString())}</p>
-        <Link href={`/news/${data?._Id}`}>
+        <p>date {multiFormatDateString(data.createdAt)}</p>
+        <Link href={`/news/${data?._id}`}>
           <Button>Read More</Button>
         </Link>
       </div>

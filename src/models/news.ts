@@ -21,7 +21,7 @@ const postsShema = new mongoose.Schema(
       required: true,
     },
     team: {
-      type: Number,
+      type: String,
       required: true,
     },
     image: String,
