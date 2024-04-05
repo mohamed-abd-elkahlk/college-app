@@ -10,7 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-const NewsCard = ({ data, place }: { data: any; place: string }) => {
+const NewsCard = ({ data, place }: { data?: any; place?: string }) => {
   return (
     <div className="shadow-slate-600 shadow-lg text-center" key={data._id}>
       <Card>
