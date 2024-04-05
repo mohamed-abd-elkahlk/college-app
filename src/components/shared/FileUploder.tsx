@@ -39,9 +39,15 @@ const FileUploader = ({ fieldChange, mediaUrl }: FileUploaderProps) => {
       {fileUrl ? (
         <>
           <div className="flex flex-1 justify-center w-full p-5 lg:p-10">
-            <img src={fileUrl} alt="image" className="file_uploader-img" />
+            <img
+              src={fileUrl}
+              alt="image"
+              className=" h-80 lg:h-[480px] w-full rounded-[24px] object-cover object-top"
+            />
           </div>
-          <p className="file_uploader-label">Click or drag photo to replace</p>
+          <p className="text-light-4 text-center small-regular w-full p-4 border-t border-t-dark-4">
+            Click or drag photo to replace
+          </p>
         </>
       ) : (
         <div className="flex-center flex-col">

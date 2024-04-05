@@ -17,3 +17,11 @@ export const newsValidation = z.object({
   image: z.string(),
   file: z.custom<File[]>(),
 });
+export const userValidation = z.object({
+  first_name: z.string().min(2).max(20),
+  last_name: z.string().min(2).max(20),
+  email: z.string().email(),
+  role: z.string(),
+  password: z.string().min(8).max(21),
+  // file: z.custom<File[]>(),
+});
