@@ -1,49 +1,22 @@
 import { initEdgeStore } from "@edgestore/server";
-import {
-  CreateContextOptions,
-  createEdgeStoreNextHandler,
-} from "@edgestore/server/adapters/next/app";
-import { z } from "zod";
+import { createEdgeStoreNextHandler } from "@edgestore/server/adapters/next/app";
 
-type Context = {
-  userId: string;
-  userRole: "admin" | "user";
-};
+const es = initEdgeStore.create();
 
-function createContext({ req }: CreateContextOptions): Context {
-  // get the session from your auth provider
-  // const session = getSession(req);
-  return {
-    userId: "1234",
-    userRole: "user",
-  };
-}
-
-const es = initEdgeStore.context<Context>().create();
-
+/**
+ * This is the main router for the Edge Store buckets.
+ */
 const edgeStoreRouter = es.router({
-  myPublicImages: es.imageBucket({
-    maxSize: 1024 * 1024 * 5, // 1MB
-  }),
-  // .input(
-  //   z.object({
-  //     type: z.enum(["news"]),
-  //   })
-  // )
-  // e.g. /post/my-file.jpg
-  // .path(({ input }) => [{ type: input.type }]),
-
-  // myProtectedFiles: es
-  //   .fileBucket()
-  // e.g. /123/my-file.pdf
-  // .path(({ ctx }) => [{ owner: ctx.userId }]),
+  publicFiles: es.fileBucket(),
 });
 
 const handler = createEdgeStoreNextHandler({
   router: edgeStoreRouter,
-  createContext,
 });
 
 export { handler as GET, handler as POST };
 
+/**
+ * This type is used to create the type-safe client for the frontend.
+ */
 export type EdgeStoreRouter = typeof edgeStoreRouter;

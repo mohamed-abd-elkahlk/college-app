@@ -1,3 +1,4 @@
+import { FileState } from "@/components/forms/MultiFileDropzone";
 import { z } from "zod";
 
 export const contactValidation = z.object({

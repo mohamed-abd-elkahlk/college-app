@@ -20,7 +20,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import FileUploader from "./FileUploder";
+import FileUploader from "../forms/FileUploder";
 import { useEdgeStore } from "@/context/EdgeStoreProvider";
 import { useToast } from "../ui/use-toast";
 const UserForm = ({ user, action }: any) => {

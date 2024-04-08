@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { AttachmentSchema } from "./attachments";
 
 const resourcesShema = new mongoose.Schema(
   {
@@ -7,21 +8,12 @@ const resourcesShema = new mongoose.Schema(
       type: String,
     },
     desc: String,
-    attachments: [
-      {
-        google_link: String,
-        name: String,
-      },
-    ],
+    attachments: [AttachmentSchema],
   },
   {
     timestamps: true,
     toJSON: {
       versionKey: false,
-      virtuals: true,
-      // transform: (_, ret) => {
-      //   delete ret._id;
-      // },
     },
   }
 );

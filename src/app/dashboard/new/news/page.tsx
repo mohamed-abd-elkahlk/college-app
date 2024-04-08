@@ -1,5 +1,4 @@
-import NewsForm from "@/components/shared/NewsForm";
-import SideNav from "@/components/shared/SideNav";
+import NewsForm from "@/components/forms/NewsForm";
 
 const page = () => {
   return (
