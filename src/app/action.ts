@@ -6,6 +6,7 @@ import { issueJwt } from "@/lib/utils";
 import User from "@/models/user";
 import bcrypt from "bcrypt";
 import { cookies } from "next/headers";
+import { revalidatePath } from "next/cache";
 
 export async function Login(prevState: any, loginData: FormData) {
   const loginInfo = {
@@ -25,6 +26,7 @@ export async function Login(prevState: any, loginData: FormData) {
   }
   const token = issueJwt(user);
   cookies().set("jwt", token);
+  revalidatePath("/");
   redirect(`/profile/${user._id}`);
 }
 
