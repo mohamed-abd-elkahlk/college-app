@@ -6,7 +6,6 @@ export async function POST(request: NextRequest) {
   const body = await request.json();
   const { title, desc, attachments } = body;
   await connectMongo();
-  const obj = { link_to_file: undefined }; // Template object
 
   const result = attachments.map((link: any) => ({ link_to_file: link }));
 

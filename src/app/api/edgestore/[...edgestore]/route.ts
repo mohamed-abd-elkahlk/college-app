@@ -7,7 +7,13 @@ const es = initEdgeStore.create();
  * This is the main router for the Edge Store buckets.
  */
 const edgeStoreRouter = es.router({
-  publicFiles: es.fileBucket(),
+  publicFiles: es.fileBucket({
+    maxSize: 1024 * 1024 * 20, // 20MB
+  }),
+  publicImages: es.imageBucket({
+    maxSize: 1024 * 1024 * 3, // 3MB
+    accept: ["image/*"],
+  }),
 });
 
 const handler = createEdgeStoreNextHandler({

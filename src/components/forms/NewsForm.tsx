@@ -41,7 +41,7 @@ const NewsForm = ({ post, action }: { post?: any; action?: string }) => {
   async function onSubmit(values: z.infer<typeof newsValidation>) {
     let uploadFile;
     try {
-      uploadFile = await edgestore.myPublicImages.upload({
+      uploadFile = await edgestore.publicImages.upload({
         file: values.file[0],
       });
       const req = await fetch("/api/new/news", {
