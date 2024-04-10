@@ -4,7 +4,6 @@ import Link from "next/link";
 
 export default async function Page({ params }: { params: { id: string } }) {
   const resources = await Resources.findById(params.id);
-  console.log(resources);
   return (
     <section className="mt-20 grid place-items-center p-6 h-screen text-center">
       <div>

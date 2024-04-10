@@ -7,7 +7,6 @@ import Link from "next/link";
 const page = async () => {
   await connectMongo();
   const news = await Post.find({});
-  console.log(news);
 
   return (
     <section className="flex flex-col px-12 mt-20 md:px-20 ">

@@ -14,7 +14,6 @@ export async function POST(request: NextRequest) {
     desc,
     attachments: result,
   });
-  console.log(resources);
 
   return NextResponse.json({ ok: true });
 }

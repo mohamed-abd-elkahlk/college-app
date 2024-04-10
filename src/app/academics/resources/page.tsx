@@ -5,7 +5,6 @@ import Resources from "@/models/resources";
 const page = async () => {
   await connectMongo();
   const resources = await Resources.find({});
-  console.log(resources);
 
   return (
     <div className="mt-20 px-6 py-12">
