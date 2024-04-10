@@ -3,34 +3,48 @@ import Link from "next/link";
 import React from "react";
 import { Button } from "../ui/button";
 import { multiFormatDateString } from "@/lib/utils";
-
-const ResourcesCard = ({ data }: any) => {
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+const ResourcesCard = ({ data, place }: any) => {
   return (
-    <div className="border shadow-slate-600 shadow-lg rounded-lg p-3">
-      <Image
-        src={data?.image || "/assets/images/about.jpg"}
-        alt="post-image"
-        width={320}
-        height={520}
-        className="object-contain rounded-md"
-      />
-      <div>
-        <h3 className="text-center font-semibold text-2xl p-2">News Title</h3>
-        <hr />
-        <p>
-          news decription: Lorem ipsum dolor sit amet consectetur adipisicing
-          elit. Eveniet placeat dicta iusto illo quidem explicabo eos veniam
-          magni neque voluptas. Expedita illum temporibus ab dolor recusandae
-          architecto tempora voluptates corporis.
-        </p>
-      </div>
-      <hr />
-      <div className="flex justify-between items-center p-3">
-        <p>date {multiFormatDateString(Date.now().toLocaleString())}</p>
-        <Link href={`/news/${data?._Id}`}>
-          <Button>Read More</Button>
-        </Link>
-      </div>
+    <div
+      className="border shadow-slate-600 shadow-lg rounded-lg p-3"
+      key={data._id}
+    >
+      <Card>
+        <CardHeader>
+          <CardTitle className="py-3 text-center">{data.title}</CardTitle>
+          <CardDescription className="text-center">{data.desc}</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Image
+            src={"/assets/icons/pdf.svg"}
+            alt="pdf"
+            width={120}
+            height={120}
+            className="m-auto"
+          />
+        </CardContent>
+        <CardFooter className="flex flex-col">
+          {place === "Dashboard" ? (
+            <div className="flex gap-3 justify-around w-full">
+              <Button>Edit</Button>
+              <Button className="bg-red-600">Delete</Button>
+            </div>
+          ) : (
+            <Link href={`/academics/resources/${data?._id}`}>
+              <Button>Read more</Button>
+            </Link>
+          )}
+          <p className="p-3">{multiFormatDateString(data.createdAt)}</p>
+        </CardFooter>
+      </Card>
     </div>
   );
 };

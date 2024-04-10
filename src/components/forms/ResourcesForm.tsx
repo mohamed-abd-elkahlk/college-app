@@ -10,29 +10,41 @@ import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
 const ResourcesForm = ({ resources, action }: any) => {
   const [fileStates, setFileStates] = useState<FileState[]>([]);
-  const [decs, setDecs] = useState("");
+  const [desc, setDecs] = useState("");
   const [title, setTitle] = useState("");
   const [attachments, setattchments] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
-
+  const { toast } = useToast();
   const { edgestore } = useEdgeStore();
 
   async function handeleSumbmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setLoading(true);
+
     try {
       const req = await fetch("/api/new/resources", {
         method: "POST",
-        body: JSON.stringify({ title, decs, attachments }),
+        body: JSON.stringify({ title, desc, attachments }),
       });
       const res = await req.json();
-      console.log(res);
+      if (res.ok) {
+        await Promise.all(
+          attachments.map(async (attch) => {
+            const res = await edgestore.publicFiles.confirmUpload({
+              url: attch,
+            });
+          })
+        );
+        toast({
+          title: "All file uploded",
+          description: `${attachments.length} files upladed`,
+        });
+      }
     } catch (error) {
       console.log(error);
     } finally {
       setLoading(false);
     }
-    // console.log({ attachments });
   }
   function updateFileProgress(key: string, progress: FileState["progress"]) {
     setFileStates((fileStates) => {
@@ -47,7 +59,7 @@ const ResourcesForm = ({ resources, action }: any) => {
     });
   }
   return (
-    <div className="grid place-items-center">
+    <div className="grid place-items-center mt-20">
       <form
         onSubmit={handeleSumbmit}
         className="grid place-items-center gap-12 "
@@ -64,7 +76,7 @@ const ResourcesForm = ({ resources, action }: any) => {
         <div className="flex flex-col w-full">
           <label htmlFor="decs">Decription</label>
           <Textarea
-            value={decs}
+            value={desc}
             placeholder="Tilte"
             onChange={(e) => setDecs(e.target.value)}
           />

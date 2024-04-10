@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { navBarLinks } from "@/constants";
 import { useUserContext } from "@/context/AuhtProvider";
 import { MenuSquareIcon } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
@@ -26,10 +27,11 @@ const Navbar = () => {
     >
       {/* computer nav */}
       <div className="hidden md:flex-center  md:justify-around w-full">
-        <div>
+        <div className="flex gap-2 items-center">
           <Link href={"/"}>
             <h2 className="text-5xl text-red-200 font-bold">Matrix</h2>
           </Link>
+          <Badge variant="default">Alpha 0.1</Badge>
         </div>
         <ul className="flex gap-6">
           {navBarLinks.map((link) => (
@@ -52,12 +54,12 @@ const Navbar = () => {
       {/* mobile nav */}
 
       <div className="relative flex-center justify-between flex-row md:hidden items-center w-full ">
-        <div>
+        <div className="flex gap-2 items-center">
           <Link href={"/"}>
             <h2 className="text-5xl text-red-200 font-bold">Matrix</h2>
           </Link>
+          <Badge variant="default">Alpha 0.1</Badge>
         </div>
-
         <MenuSquareIcon
           onClick={() => {
             setShow((prev) => !prev);
